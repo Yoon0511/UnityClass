@@ -9,20 +9,25 @@ namespace Project_A
             int hp = 10;
             int atk = 10;
             int PlayerCount = 2;
-            bool GameLoop = true;
+            bool GameLoop = false;
 
-            while(GameLoop)
+            PLAYER  Player = new PLAYER("Player");
+            MONSTER Monster = new MONSTER("Monster"); 
+            PET Pet = new PET(Player);
+            NPC Npc = new NPC();
+
+            Player.PrintStat();
+            Monster.PrintStat();
+            Pet.PrintStat();
+            Npc.PrintStat();
+
+            Npc.Mathing(Player);
+
+            Player.PrintStat();
+
+            while (GameLoop)
             {
-                if(hp == 0)
-                {
-                    if (PlayerCount > 0)
-                    {
-                        hp = 10;
-                        PlayerCount--;
-                    }
-                    else
-                        GameLoop = false;
-                }
+                
             }
            
         }
