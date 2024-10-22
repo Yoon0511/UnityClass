@@ -15,18 +15,18 @@ namespace Project_A
     }
     internal class NPC : Object
     {
-        private int IsPlayerSide = 0;       //1 = 플레이어편, 0 = 몬스터 편
-        private static int NPC_Count = 0;   //생성된 NPC 수
+        private int mIsPlayerSide = 0;       //1 = 플레이어편, 0 = 몬스터 편
+        private static int mNPC_Count = 0;   //생성된 NPC 수
         public NPC() 
         {
-            NPC_Count++;
-            mName = "NPC_" + NPC_Count;
+            mNPC_Count++;
+            mName = "NPC_" + mNPC_Count;
             Init();
         }
         public NPC(string name)
         {
-            NPC_Count++;
-            mName = name + "_" + NPC_Count;
+            mNPC_Count++;
+            mName = name + "_" + mNPC_Count;
             Init();
         }
 
@@ -35,7 +35,10 @@ namespace Project_A
             mHp                 = random.Next(5, 20);
             mDef                = random.Next(1, 5);
             mAtk                = random.Next(5, 10);
-            IsPlayerSide        = random.Next(1);
+            mIsPlayerSide       = random.Next(1);
+
+            Console.WriteLine("NPC 생성");
+            PrintStat();
         }
         public override void Update()
         {
@@ -47,25 +50,25 @@ namespace Project_A
             if (other == null) return;
             int RandomMathing = random.Next(0, 100);
 
-            //if (RandomMathing > 30) return; //30%확률로 만난다.
+            if (RandomMathing > 30) return; //30%확률로 만난다.
 
             //만나면 NPC가 어느편인지에따라 다른 행동 실행
 
             if (IsTeam(other)) //같은 편 NPC를 만났을 경우 스탯 업그레이드
             {
-                Console.WriteLine("같은편 NPC 만남");
+                Console.WriteLine("같은편 NPC 만남. 스탯 보너스 획득");
                 UpgradeToStat(other);
             }
             else //다른 편 NPC를 만났을 경우 스탯 다운
             {
-                Console.WriteLine("상대편 NPC 만남");
+                Console.WriteLine("상대편 NPC 만남. 스탯 하락");
                 DowngradeToStat(other);
             }
         }
 
         public bool IsTeam(Object other)
         {
-            if (IsPlayerSide == 1) //플레이어 편
+            if (mIsPlayerSide == 1) //플레이어 편
             {
                 if(other.GetType().Name.Equals("PLAYER"))
                 {

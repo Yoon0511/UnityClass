@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace Project_A
 {
@@ -6,30 +8,44 @@ namespace Project_A
     {
         static void Main(string[] args)
         {
-            int hp = 10;
-            int atk = 10;
-            int PlayerCount = 2;
-            bool GameLoop = false;
+            bool GameLoop = true;
+            List<Object> ListObj = new List<Object>();
 
             PLAYER  Player = new PLAYER("Player");
             MONSTER Monster = new MONSTER("Monster"); 
-            PET Pet = new PET(Player);
             NPC Npc = new NPC();
+
+            Player.SetTarget(Monster);
+            Monster.SetTarget(Player);
 
             Player.PrintStat();
             Monster.PrintStat();
-            Pet.PrintStat();
-            Npc.PrintStat();
 
-            Npc.Mathing(Player);
-
-            Player.PrintStat();
+            ListObj.Add(Player);
+            ListObj.Add(Monster);
+            ListObj.Add(Npc);
 
             while (GameLoop)
             {
-                
+                foreach(Object obj in ListObj)
+                {
+                    if (obj.GetHp() <= 0)
+                    {
+                        Console.WriteLine($"{obj.GetName()} 사망. 게임종료");
+                        GameLoop = false;
+                        break;
+                    }
+
+                    obj.Update();
+
+                    Thread.Sleep(500);
+                }
+                //Npc.Mathing(Player);
+                //Npc.Mathing(Monster);
             }
-           
+            Console.WriteLine("--------------------------------------------");
+            Player.PrintStat();
+            Monster.PrintStat();
         }
     }
 }

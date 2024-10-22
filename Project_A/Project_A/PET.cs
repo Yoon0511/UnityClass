@@ -14,36 +14,38 @@ namespace Project_A
     }
     internal class PET : Object
     {
-        private PLAYER Owner;                   //펫을 소유중인 플레이어
-        private int IsPermanentPet;             //펫 버프 타입(영구/일시)
-        private static int PetCount = 0;        //생성 펫의 수
-        private static int BuffCount = 0;
+        private PLAYER mOwner;                   //펫을 소유중인 플레이어
+        private int mIsPermanentPet;             //펫 버프 타입(영구/일시)
+        private static int mPetCount = 0;        //생성 펫의 수
+        private static int mBuffCount = 0;
         public PET(PLAYER owner) 
         {
-            PetCount++;
-            Owner               = owner;
-            mName               = "Pet_" + PetCount;
-            mHp                 = random.Next(10, 50);
-            mDef                = random.Next(5, 15);
-            mAtk                = random.Next(10, 20);
-            IsPermanentPet      = random.Next(1);
-            BuffCount           = random.Next(3,5);
+            mPetCount++;
+            mOwner               = owner;
+            mName               = "Pet_" + mPetCount;
+            mHp                 = random.Next(1, 5);
+            mDef                = random.Next(1, 3);
+            mAtk                = random.Next(1, 3);
+            mIsPermanentPet      = random.Next(1);
+            mBuffCount           = random.Next(3,5);
 
             if (owner != null)
             {
                 GiveBuffToPlayer();
             }
+
+            Console.WriteLine($"펫 생성({mName}) - {mIsPermanentPet}");
         }
 
-        public int GetPetCount() { return PetCount; }
+        public int GetPetCount() { return mPetCount; }
         public override void Update()
         {
-            if (IsPermanentPet == 1) return;
+            if (mIsPermanentPet == 1) return;
 
-            BuffCount--;
-            if (Owner != null && BuffCount == 0)
+            mBuffCount--;
+            if (mOwner != null && mBuffCount == 0)
             {
-                BuffCount = random.Next(3, 5);
+                mBuffCount = random.Next(3, 5);
                 GiveBuffToPlayer();
             }
         }
@@ -55,20 +57,20 @@ namespace Project_A
             switch (RandomBuff)
             {
                 case (int)BUFFTYPE.HP_BUFF:
-                    Owner.SetHp(Owner.GetHp() + mHp);
+                    mOwner.SetHp(mOwner.GetHp() + mHp);
                     break;
                 case (int)BUFFTYPE.DEF_BUFF:
-                    Owner.SetDef(Owner.GetDef() + mDef);
+                    mOwner.SetDef(mOwner.GetDef() + mDef);
                     break;
                 case (int)BUFFTYPE.ATK_BUFF:
-                    Owner.SetAtk(Owner.GetAtk() + mAtk);
+                    mOwner.SetAtk(mOwner.GetAtk() + mAtk);
                     break;
             }
         }
 
         public void PrintOwnerName()
         {
-            Console.Write(Owner.GetName());
+            Console.Write(mOwner.GetName());
         }
     }
 }

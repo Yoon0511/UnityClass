@@ -18,9 +18,9 @@ namespace Project_A
         public Object(string name)
         { 
             mName = name;
-            mHp = random.Next(150, 200);
-            mDef = random.Next(5, 15);
-            mAtk = random.Next(10, 30);
+            mHp = random.Next(100, 300);
+            mDef = random.Next(1, 4);
+            mAtk = random.Next(5, 15);
         }
 
         public void SetHp(int hp) { mHp = hp; }
@@ -32,7 +32,7 @@ namespace Project_A
         public int GetDef() { return mDef; }
         public int GetAtk() { return mAtk; }
         public string GetName() { return mName; }
-        virtual public void Update() { }
+        public virtual void Update() { }
 
         public void PrintStat()
         {
