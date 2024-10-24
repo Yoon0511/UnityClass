@@ -8,8 +8,8 @@ namespace Project_A
 {
     internal class PLAYER : Object
     {
-        private PET mPet;
-        private MONSTER mTarget = null;
+        private PET Pet;
+        private MONSTER Target = null;
         public PLAYER() { }
         public PLAYER(string name) : base(name) 
         {
@@ -21,17 +21,17 @@ namespace Project_A
 
         public override void Update()
         {
-            if(mTarget != null)
+            if(Target != null)
             {
-                DoAttack(mTarget);
+                DoAttack(Target);
             }
         }
 
         public void SetTarget(MONSTER target)
         {
-            if(mTarget == null)
+            if(Target == null)
             {
-                mTarget = target;
+                Target = target;
             }
         }
         public void DoAttack(MONSTER enemy)
@@ -48,7 +48,7 @@ namespace Project_A
 
         public void CreatePet()
         {
-            mPet = new PET(this);
+            Pet = new PET(this);
         }
     }
 }

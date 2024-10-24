@@ -8,7 +8,7 @@ namespace Project_A
 {
     internal class MONSTER : Object
     {
-        private PLAYER mTarget = null;
+        private PLAYER Target = null;
         public MONSTER() { }
         public MONSTER(string name) : base(name) 
         {
@@ -17,16 +17,17 @@ namespace Project_A
         }
         public override void Update()
         {
-            if (mTarget != null)
+            if (Target != null)
             {
-                DoAttack(mTarget);
+                DoAttack(Target);
             }
+
         }
         public void SetTarget(PLAYER target)
         {
-            if (mTarget == null)
+            if (Target == null)
             {
-                mTarget = target;
+                Target = target;
             }
         }
         public void DoAttack(PLAYER enemy)

@@ -15,27 +15,27 @@ namespace Project_A
     }
     internal class NPC : Object
     {
-        private int mIsPlayerSide = 0;       //1 = 플레이어편, 0 = 몬스터 편
-        private static int mNPC_Count = 0;   //생성된 NPC 수
+        private int         IsPlayerSide = 0;       //1 = 플레이어편, 0 = 몬스터 편
+        private static int  NPC_Count = 0;   //생성된 NPC 수
         public NPC() 
         {
-            mNPC_Count++;
-            mName = "NPC_" + mNPC_Count;
+            NPC_Count++;
+            Name = "NPC_" + NPC_Count;
             Init();
         }
         public NPC(string name)
         {
-            mNPC_Count++;
-            mName = name + "_" + mNPC_Count;
+            NPC_Count++;
+            Name = name + "_" + NPC_Count;
             Init();
         }
 
         public void Init()
         {
-            mHp                 = random.Next(5, 20);
-            mDef                = random.Next(1, 5);
-            mAtk                = random.Next(5, 10);
-            mIsPlayerSide       = random.Next(1);
+            Hp                 = random.Next(5, 20);
+            Def                = random.Next(1, 5);
+            Atk                = random.Next(5, 10);
+            IsPlayerSide       = random.Next(1);
 
             Console.WriteLine("NPC 생성");
             PrintStat();
@@ -68,7 +68,7 @@ namespace Project_A
 
         public bool IsTeam(Object other)
         {
-            if (mIsPlayerSide == 1) //플레이어 편
+            if (IsPlayerSide == 1) //플레이어 편
             {
                 if(other.GetType().Name.Equals("PLAYER"))
                 {
@@ -98,13 +98,13 @@ namespace Project_A
             switch (RandomUpgrade)
             {
                 case (int)STATTYPE.HP:
-                    other.SetHp(other.GetHp() + mHp);
+                    other.SetHp(other.GetHp() + Hp);
                     break;
                 case (int)STATTYPE.DEF:
-                    other.SetDef(other.GetDef() + mDef);
+                    other.SetDef(other.GetDef() + Def);
                     break;
                 case (int)STATTYPE.ATK:
-                    other.SetAtk(other.GetAtk() + mAtk);
+                    other.SetAtk(other.GetAtk() + Atk);
                     break;
             }
         }
@@ -116,13 +116,13 @@ namespace Project_A
             switch (RandomDowngrade)
             {
                 case (int)STATTYPE.HP:
-                    other.SetHp(other.GetHp() - mHp);
+                    other.SetHp(other.GetHp() - Hp);
                     break;
                 case (int)STATTYPE.DEF:
-                    other.SetDef(other.GetDef() - mDef);
+                    other.SetDef(other.GetDef() - Def);
                     break;
                 case (int)STATTYPE.ATK:
-                    other.SetAtk(other.GetAtk() - mAtk);
+                    other.SetAtk(other.GetAtk() - Atk);
                     break;
             }
         }
